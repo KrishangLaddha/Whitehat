@@ -1,24 +1,24 @@
-var fixedRect, movingRect
-function setup() {
-  createCanvas(1200,800);
-  fixedRect = createSprite(600,400,50,80);
-  fixedRect.shapeColor = "green";
-  movingRect = createSprite(400,20,80,30);
-  movingRect.shapeColor = "green";
+const Engine = Matter.Engine;
+const World= Matter.World;
+const Bodies = Matter.Bodies;
+
+var engine, world;
+var box1;
+var box2;
+var ground;
+function setup(){
+    var canvas = createCanvas(400,400);
+    engine = Engine.create();
+    world = engine.world;
+    box1 = new Box(200,100,50,50);
+    box2 = new Box(100,50,50,100);
+    ground = new Ground(200,390,400,20);
 }
 
-function draw() {
-  background(255,255,255);  
-  movingRect.x = World.mouseX;
-  movingRect.y = World.mouseY;
-  if(movingRect.x - fixedRect.x < fixedRect.width/2 + movingRect.width/2 && fixedRect.x - movingRect.x < fixedRect.width/2 + movingRect.width/2 
-    && movingRect.y - fixedRect.y < fixedRect.height/2 + movingRect.height/2 && fixedRect.y - movingRect.y < fixedRect.height/2 + movingRect.height/2 ){
-movingRect.shapeColor = "red";
-fixedRect.shapeColor = "red";
-  }
-  else{
-  movingRect.shapeColor = "green";
-  fixedRect.shapeColor = "green";
-}
-  drawSprites();
+function draw(){
+    background(0);
+    Engine.update(engine);
+    box1.display();
+    box2.display();
+    ground.display();
 }
